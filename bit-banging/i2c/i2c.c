@@ -12,7 +12,12 @@ enum pin_value
 struct i2c_bus i2c_bus_values[1024];
 int32_t i2c_value_index;
 
-
+// There is only one debug array, which holds every I2C
+// SDA and SCL transitions.  This assumes that only one
+// i2c_bus is being used.  If testing multiple i2c_bus, make
+// i2c_bus_values into a strucuture with the buffer and index
+// as members.  Then the debug functions will take a pointer
+// to the instance of the i2c_bus_values object
 void reset_i2c_debug_array(void)
 {
     int32_t i;
@@ -21,7 +26,7 @@ void reset_i2c_debug_array(void)
         i2c_bus_values[i].sda = HIGH;
         i2c_bus_values[i].scl = HIGH;
     }
-    i2c_value_index = 1; // First frame has pulled up SDA, SCL
+    i2c_value_index = 1; // First frame has default pulled up SDA, SCL
 }
 
 void update_i2c_debug_array(const struct i2c_bus *i2c)
@@ -78,6 +83,7 @@ void set_sda(struct i2c_bus *i2c, enum pin_value value)
 #endif
 }
 
+// Unused, since we don't try to read data from the bus
 enum pin_value get_sda(const struct i2c_bus *i2c)
 {
     return (enum pin_value)i2c->sda;

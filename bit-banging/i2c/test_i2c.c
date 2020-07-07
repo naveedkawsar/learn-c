@@ -7,10 +7,10 @@ int main(int argc, char **argv)
     uint8_t data_out[2] = "GO";
 #if DEBUG
     reset_i2c_debug_array();
-#endif
     i2c_write_msg(&i2c_test, data_out, ARRAYSIZE(data_out));
-#if DEBUG
     print_i2c_debug_array();
+#else
+    i2c_write_msg(&i2c_test, data_out, ARRAYSIZE(data_out));
 #endif
     return 0;
 }
