@@ -1,3 +1,12 @@
+// This implementation is largely inspired by Jack Ganssle's
+// video on bit-banging I2C using two GPIO lines.
+// See original video:
+// https://www.youtube.com/watch?v=VfpLyJvaBmc
+// His source code:
+// http://www.ganssle.com/video/episode8-code.txt
+// The Wikipedia entry for I2C is good reference material:
+// https://en.wikipedia.org/wiki/I%C2%B2C
+
 #include "i2c.h"
 
 enum pin_value
@@ -7,6 +16,13 @@ enum pin_value
 };
 
 #if DEBUG
+// The idea to plot the state of each serial line when any
+// one transitions (either 0 -> 1 or 1 -> 0) in Excel comes from
+// EEVblog's bit-banging tutorial:
+// https://www.youtube.com/watch?v=fm13tIe5wSc
+// Source code: https://gitlab.com/Sepps/generic-bitbang-library-v1
+
+
 #include <stdio.h>
 #define ARRAYSIZE(x) (sizeof(x) / sizeof(x[0]))
 struct i2c_bus i2c_bus_values[1024];
